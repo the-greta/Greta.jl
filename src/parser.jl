@@ -21,7 +21,7 @@ result : Dictionary
 """
 function parse_nested_dict(string::String)
     # external dictionary: get column index
-    string = string[2:(length(string)-2)]
+    string = String(collect(string)[2:(length(string)-2)])
     key_value_vector = collect(Iterators.flatten([split(x, "}, ") for x in split(string, ": {")]))
     column_index = key_value_vector[1:2:length(key_value_vector)]
     column_index = [parse(Int64, index) for index in column_index]
@@ -38,7 +38,7 @@ function parse_nested_dict(string::String)
         nested_keys = [recover_type(k) for k in nested_key_value_vector[1:2:length(nested_key_value_vector)]]
         nested_values = nested_key_value_vector[2:2:length(nested_key_value_vector)]
         nested_values = [
-            value[1] == '[' ? [recover_type(v) for v in split(value[2:(length(value)-1)], ", ")] :
+            value[1] == '[' ? [recover_type(v) for v in split(String(collect(value)[2:(length(value)-1)]), ", ")] :
             [recover_type(value)] for value in nested_values
         ]
         push!(internal_dict, Dict(zip(nested_keys, nested_values)))
@@ -58,7 +58,7 @@ Returns
 -------
 result : Float64 or Int64 or string
 """
-function recover_type(string::String)
+function recover_type(string::SubString)
     if (occursin(".", string)) & (tryparse(Float64, string) !== nothing)
         orig_type = parse(Float64, string)
     elseif tryparse(Int64, string) !== nothing
