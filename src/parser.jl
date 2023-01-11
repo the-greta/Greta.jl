@@ -19,7 +19,7 @@ Returns
 -------
 result : Dictionary
 """
-function parse_nested_dict(string::String)
+function parse_nested_dict(string)
     if string == "{}"
         return(Dict())
     else
