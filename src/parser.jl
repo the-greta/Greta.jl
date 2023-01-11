@@ -20,8 +20,7 @@ Returns
 result : Dictionary
 """
 function parse_nested_dict(string::String)
-    println(string)
-    if string == "{}"
+    if string == "'{}'"
         return(Dict())
     else
         # external dictionary: get column index
