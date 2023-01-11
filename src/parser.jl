@@ -20,8 +20,8 @@ Returns
 result : Dictionary
 """
 function parse_nested_dict(string)
-    if string == "{}"
-        return(Dict())
+    if string == Dict()
+        return(string)
     else
         # external dictionary: get column index
         string = String(collect(string)[2:(length(string)-2)])
