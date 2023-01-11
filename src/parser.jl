@@ -20,6 +20,7 @@ Returns
 result : Dictionary
 """
 function parse_nested_dict(string::String)
+    println(string)
     if string == "{}"
         return(Dict())
     else
